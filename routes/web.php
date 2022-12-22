@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::webhooks('incoming');
+
+Route::group([
+    'prefix' => 'mailgun',
+],function () {
+    Route::post('widgets', 'MailgunController@store');
+});
