@@ -16,16 +16,20 @@ class MailgunController extends Controller
 
         $msg = request()->all();
 
-        Log::debug($msg);
+        // Log::debug($msg);
 
-        $attach = $msg['attachment-1'];
+        // $attach = $msg['attachment-1'];
         // Log::debug($attach->get());
 
         // $attach->storePublicly('my_attach');
-        Log::debug($attach->getClientOriginalName());
+        // Log::debug($attach->getClientOriginalName());
 
+        Log::debug($msg['From']);
+        Log::debug($msg['To']);
+        Log::debug($msg['stripped-text']);
+        Log::debug($msg['stripped-signature']);
 
-    
+        
         return response()->json(['status' => 'ok']);
     }
 

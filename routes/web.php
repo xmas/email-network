@@ -24,3 +24,9 @@ Route::group([
 ],function () {
     Route::post('widgets', 'MailgunController@store');
 });
+
+Route::get('/mail/gathr', function () {
+    // $invoice = App\Models\Invoice::find(1);
+ 
+    return new App\Mail\GathrMail();
+});
