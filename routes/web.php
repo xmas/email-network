@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+    Route::get('/mail/gathr', function () {
+        return new App\Mail\GathrMail(auth()->user());
+    });
+});
+
 
 Route::webhooks('incoming');
 
@@ -25,8 +46,4 @@ Route::group([
     Route::post('widgets', 'MailgunController@store');
 });
 
-Route::get('/mail/gathr', function () {
-    // $invoice = App\Models\Invoice::find(1);
- 
-    return new App\Mail\GathrMail();
-});
+

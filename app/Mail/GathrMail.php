@@ -9,6 +9,8 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+use App\Models\User;
+
 class GathrMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -18,10 +20,8 @@ class GathrMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(public User $user)
+    {}
 
     /**
      * Get the message envelope.
@@ -32,7 +32,7 @@ class GathrMail extends Mailable
     {
         return new Envelope(
             to: 'rowanxmas@gmail.com',
-            subject: 'Gathr Mail',
+            subject: 'Gathr Mail'.time(),
         );
     }
 
@@ -45,6 +45,9 @@ class GathrMail extends Mailable
     {
         return new Content(
             markdown: 'emails.gathr.main',
+            with: [
+                'user' => $this->user
+            ]
         );
     }
 

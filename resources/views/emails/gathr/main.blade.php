@@ -1,8 +1,8 @@
-<!-- <x-mail::message> -->
+<x-mail::message>
 # Introduction
 
-<x-mail::msg>
-Hello,
+<x-mail::subcopy>
+Hello {{ $user->name }},
 
 So I’ve decided that I don’t like any of the existing social network options for blogging, 
 
@@ -12,11 +12,16 @@ This is my attempt to bring that back. Gathr Space is designed to not want much 
 
 It runs mostly on email, so there is no website or another thing you need. And since you’re not on a web browser maybe it’ll be less enticing to endlessly surf the web.
 
-</x-mail::panel>
-
-
+</x-mail::subcopy>
 
 <p class="thread-next">⬇️</p>
+
+
+<x-mail::subcopy>
+This is a response. I don't know about this, but I think it's silly. 
+<a href="mailto:rowanxmas@gmail.com" target="_blank" rel="noopener noreferrer">reply to this</a>. or not or whatever.
+</x-mail::subcopy>
+
 
 
 
@@ -28,4 +33,4 @@ REPLY
 
 GATHR ON,<br>
 {{ config('app.name') }}
-<!-- </x-mail::message> -->
+</x-mail::message>
