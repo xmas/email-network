@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Support\Facades\Mail;
 
 use App\Mail\GathrMail;
+use App\Models\User;
 
 class GathrEmailTest extends Command
 {
@@ -33,7 +34,7 @@ class GathrEmailTest extends Command
     public function handle()
     {
 
-        $mail = new GathrMail();
+        $mail = new GathrMail(User::find(1));
         Mail::send($mail);
 
 

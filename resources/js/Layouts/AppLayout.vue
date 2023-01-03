@@ -26,6 +26,16 @@ const switchToTeam = (team) => {
 const logout = () => {
     Inertia.post(route('logout'));
 };
+
+const navs = [{
+    route: 'dashboard',
+    title: 'Dashboard'
+},
+{
+    route: 'messages',
+    title: 'Messages'
+}
+]
 </script>
 
 <template>
@@ -48,9 +58,9 @@ const logout = () => {
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                            <div v-for="nav in navs" :key="nav.route" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route(nav.route)" :active="route().current(nav.route)">
+                                    {{ nav.title }}
                                 </NavLink>
                             </div>
                         </div>

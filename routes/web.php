@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,7 +36,10 @@ Route::middleware([
     Route::get('/mail/gathr', function () {
         return new App\Mail\GathrMail(auth()->user());
     });
+    Route::get('/messages', 'MessageController@index')->name('messages');
 });
+
+Route::inertia('/about', 'AboutComponent');
 
 
 Route::webhooks('incoming');
