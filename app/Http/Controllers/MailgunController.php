@@ -4,30 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\Message;
 
 class MailgunController extends Controller
 {
     public function store()
     {
-        // app('log')->debug(request()->all());
-        // app('log')->debug(request()->all())
+        $req = request()->all();
 
-        // Log::debug(array_keys(request()->all()));
+        // Log::debug($req);
 
-        $msg = request()->all();
 
-        // Log::debug($msg);
+        $message = new Message;
+        $message->stripped_text = $req['stripped-text'];
+        $message->stripped_signature = $req['stripped-signature'];
 
-        // $attach = $msg['attachment-1'];
-        // Log::debug($attach->get());
+        $message->from_user_account = 1;
+        
+        // $message->from = $req['from'];
 
-        // $attach->storePublicly('my_attach');
-        // Log::debug($attach->getClientOriginalName());
+        $message->save();
 
-        Log::debug($msg['From']);
-        Log::debug($msg['To']);
-        Log::debug($msg['stripped-text']);
-        Log::debug($msg['stripped-signature']);
+        // $to = $req['To'];
+
+
+        Log::debug($req['To']);
 
         
         return response()->json(['status' => 'ok']);
